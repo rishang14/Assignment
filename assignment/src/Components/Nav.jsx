@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'; 
-import {AiOutlineShoppingCart} from "react-icons/ai";
+import {AiOutlineShoppingCart} from "react-icons/ai"; 
+import { Outlet } from 'react-router-dom';
 
 const Nav = () => { 
      const [open,setOpen]=useState(false);  
      const [count,setCount] =useState(0)
 
-  return (
-    <div className='shadow-md w-full fixed top-0 left-0'>
+  return ( 
+    <>
+   
+    <div className='shadow-md w-full fixed top-0 left-0 ' >
       <div className='md:flex items-center justify-between bg-white py-4 md:px-10 px-7'>
       <div className='font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
       text-gray-800'>
-        <span className='text-3xl text-indigo-600 mr-1 pt-2'>
+        <span className='text-3xl text-cyan-600 mr-1 pt-2'>
         <ion-icon name="logo-ionic"></ion-icon>
         </span>
-        Designer
+        Digital stores
       </div>
       
       <div onClick={()=>setOpen(!open)} className='text-3xl absolute right-8 top-6 cursor-pointer md:hidden'>
@@ -35,8 +38,11 @@ const Nav = () => {
         </Link> 
         <span className='text-2xl relative right-10 bottom-1'>{count}</span>
       </ul>
-      </div>
-    </div>
+      </div> 
+    
+    </div>  
+    <Outlet/>
+    </>
   )
 }
 
