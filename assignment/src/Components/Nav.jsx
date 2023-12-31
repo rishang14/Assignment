@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'; 
+import { Link,Outlet } from 'react-router-dom'; 
 import {AiOutlineShoppingCart} from "react-icons/ai"; 
-import { Outlet } from 'react-router-dom';
 
 const Nav = () => { 
      const [open,setOpen]=useState(false);  
@@ -11,14 +10,16 @@ const Nav = () => {
     <>
    
     <div className='shadow-md w-full fixed top-0 left-0 ' >
-      <div className='md:flex items-center justify-between bg-white py-4 md:px-10 px-7'>
+      <div className='md:flex items-center justify-between bg-white py-4 md:px-10 px-7'> 
+      <Link to={"/"}>
       <div className='font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
       text-gray-800'>
         <span className='text-3xl text-cyan-600 mr-1 pt-2'>
         <ion-icon name="logo-ionic"></ion-icon>
         </span>
         Digital stores
-      </div>
+      </div> 
+      </Link>
       
       <div onClick={()=>setOpen(!open)} className='text-3xl absolute right-8 top-6 cursor-pointer md:hidden'>
       <ion-icon name={open ? 'close':'menu'}></ion-icon>

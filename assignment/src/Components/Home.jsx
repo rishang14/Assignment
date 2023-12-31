@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from 'axios'; 
-import CardCompnent from "./CardCompnent";
+import CardCompnent from "./CardCompnent"; 
+import Loader from "./Loader";
 
 const Home = () => {
   const [data, setData] = useState([]);  
-  const [search,setSearch]=useState([])
+  const [search,setSearch]=useState([]) 
+  const [loading,setloading]=useState(true)
 
 
   useEffect(() => {
@@ -16,9 +18,11 @@ const Home = () => {
         console.log(response.data) 
         const products=response.data.products
         setData(products); 
-        setSearch(products);
+        setSearch(products); 
+        setloading(false)
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error); 
+        setloading(false)
       }
     };
     fetchData();
@@ -33,19 +37,59 @@ const Home = () => {
     setSearch(filteredItems);
   }; 
 
-  const FilterViaPrice=()=>{
+  const FilterViaPrice500=()=>{
     const filteredItems= data.filter(item => item.price<500); 
     setSearch(filteredItems)
   }
   
-  const FilterViaRating=()=>{
-    const filteredItems=data.items(item => item.rating> 3); 
+  const FilterViaPrice1000=()=>{
+    const filteredItems=data.filter(item => item.price> 1000); 
     setSearch(filteredItems)
   }
 
   return (
     <>  
-    <div className="mt-[60px] mx-auto max-w-[75rem] px-0 py-[4rem]"> 
+ 
+   
+    {
+      loading ?
+      <div className="absolute top-[40%] left-[45%]">
+    <Loader/> 
+      </div>
+    : (
+        <div className="mt-[60px] mx-auto max-w-[75rem] px-0 py-[4rem]">  
+        <div className="flex justify-center items-center w-full lg:w-[full] ">
+            <input type="text" className="block w-[150%] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Search Product" onChange={Filter} /> 
+        
+    </div>
+            <div className="flex justify-center flex-row mt-2 mb-3 flex-wrap"> <span className=" px-6 py-2 mx-4">
+              Sort via
+            </span>
+            <button className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 " onClick={FilterViaPrice500}>less than 500</button> 
+            <button className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 " onClick={FilterViaPrice1000}>more than 1000 </button> 
+            </div> 
+    
+          
+        <div className="flex flex-row  justify-center flex-wrap  " > 
+            {search.map((item) => (  
+                <CardCompnent  
+                title={item.title} 
+                discount={item.discountPercentage}
+                id={item.id} 
+                price={item.price} 
+                stock={item.stock} 
+                rating={item.rating} 
+                img={item.thumbnail} 
+                brand={item.brand} 
+                description={item.description}
+                
+                />
+            ))}
+          </div>  
+          </div>
+      )
+    }  
+    {/* <div className="mt-[60px] mx-auto max-w-[75rem] px-0 py-[4rem]">  
     <div className="flex justify-center items-center w-full lg:w-[full] ">
         <input type="text" className="block w-[150%] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" placeholder="Search Product" onChange={Filter} /> 
     
@@ -53,12 +97,11 @@ const Home = () => {
         <div className="flex justify-center flex-row mt-2 mb-3 flex-wrap"> <span className=" px-6 py-2 mx-4">
           Sort via
         </span>
-        <button className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 " onClick={FilterViaPrice}>less than 500</button> 
-        <button className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 " onClick={FilterViaPrice}>3 rating </button> 
-        <button className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 ">more than 1000</button>  
+        <button className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 " onClick={FilterViaPrice500}>less than 500</button> 
+        <button className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 " onClick={FilterViaPrice1000}>more than 1000 </button> 
         </div> 
 
- 
+      
     <div className="flex flex-row  justify-center flex-wrap  " > 
         {search.map((item) => (  
             <CardCompnent  
@@ -75,7 +118,7 @@ const Home = () => {
             />
         ))}
       </div>  
-      </div>
+      </div> */} 
     </>
   )
 };
