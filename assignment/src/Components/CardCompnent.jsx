@@ -7,7 +7,8 @@ const CardCompnent = ({
   description,
   img,
   stock,
-  brand,
+  brand, 
+  handleCartButton
 }) => {
   return (
     <>
@@ -46,7 +47,9 @@ const CardCompnent = ({
             </span>
           </div>
           <div className="mt-5 flex gap-2">
-            <button className="bg-cyan-500/80 hover:bg-cyan-500/90 px-6 py-2 rounded-md text-white font-medium tracking-wider transition">
+            <button  
+            onClick={()=>handleCartButton(id,title,brand,price,description,img)}
+             className="bg-cyan-500/80 hover:bg-cyan-500/90 px-6 py-2 rounded-md text-white font-medium tracking-wider transition">
               Add to Cart
             </button>
             <button className="flex-grow flex justify-center items-center bg-gray-300/60 hover:bg-gray-300/80 transition rounded-md">

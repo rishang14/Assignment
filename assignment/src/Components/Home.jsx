@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CardCompnent from "./CardCompnent";
-import Loader from "./Loader";
+import Loader from "./Loader"; 
+import { useAuth } from "../Authentication/Authcontext";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [loading, setloading] = useState(true);
+  const {addToCart,cart,user}=useAuth() 
+     
+  const itemIsInCart =(itemid)=>{
+    return user && cart.some((item)=>  item.id === itemid)
+  }
+
 
   // fetchings products
   useEffect(() => {
@@ -48,7 +55,20 @@ const Home = () => {
   const FilterViaPrice1000 = () => {
     const filteredItems = data.filter((item) => item.price > 1000);
     setSearch(filteredItems);
-  };
+  }; 
+  const handleAddToCartButton=(item)=>{  
+    if(user){
+    if(itemIsInCart(item.id)){
+      alert("item already in a cart")
+    } else{
+
+      addToCart(item); 
+      alert("item added to the cart")
+    }
+  }else{ 
+    alert("please login to access these feature")
+
+  }}
 
   return (
     <>
@@ -93,7 +113,8 @@ const Home = () => {
                 stock={item.stock}
                 rating={item.rating}
                 img={item.thumbnail}
-                brand={item.brand}
+                brand={item.brand} 
+                handleCartButton={()=>handleAddToCartButton(item)}
               />
             ))}
           </div>

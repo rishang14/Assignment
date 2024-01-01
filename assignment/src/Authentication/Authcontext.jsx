@@ -2,11 +2,12 @@
 import React, { createContext, useContext, useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 
-const AuthContext = createContext();
+const Context = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const isMounted = useRef(true); // Using a ref to track if the component is mounted
+  const isMounted = useRef(true); // Using a ref to track if the component is mounted 
+  const[cart,setCart]=useState([]) 
 
   useEffect(() => {
     return () => {
@@ -41,15 +42,24 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-  };
+  }; 
+
+  const addToCart=(item)=>{
+    setCart([...cart,item])  
+  } 
+  const removeFromCart=(itemId)=>{
+    setCart(cart.filter((item)=> item.id !== itemId))
+  }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <
+    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart}}>
       {children}
-    </AuthContext.Provider>
+    </
+  Context.Provider>
   );
 };
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  return useContext(Context);
 };

@@ -1,13 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react"; 
 import CardCompnent from "./CardCompnent"; 
-import Loader from "./Loader";
+import Loader from "./Loader"; 
+import { useAuth } from "../Authentication/Authcontext";
 
 
 const ExploreMore = () => {  
     const[category,setCategory]=useState([]); 
     const [categoryData,setCategoryData]=useState([]) 
-    const [loader, setloader]= useState(true)
+    const [loader, setloader]= useState(true)  
+    const {addToCart,cart,user}=useAuth() 
+     
+    const itemIsInCart =(itemid)=>{
+      return user && cart.some((item)=>  item.id === itemid)
+    }
+
      
     useEffect(()=>{  
       try{
@@ -33,7 +40,21 @@ const ExploreMore = () => {
         const response= await axios.get(`https://dummyjson.com/products/category/${categoryValues}`) 
         setCategoryData(response.data.products)
       }
-    console.log(categoryData)
+    console.log(categoryData) 
+
+    const handleAddToCartButton=(item)=>{  
+      if(user){
+      if(itemIsInCart(item.id)){
+        alert("item already in a cart")
+      } else{
+
+        addToCart(item); 
+        alert("item added to the cart")
+      }
+    }else{ 
+      alert("please login to access these feature")
+
+    }}
   return (
    <>  
    {
@@ -61,7 +82,8 @@ const ExploreMore = () => {
             rating={item.rating} 
             img={item.thumbnail} 
             brand={item.brand} 
-            description={item.description}
+            description={item.description} 
+            handleCartButton={()=>handleAddToCartButton(item)}
             
             />
         ))}
