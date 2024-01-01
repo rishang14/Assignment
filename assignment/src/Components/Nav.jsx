@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { Link,Outlet } from 'react-router-dom'; 
-import {AiOutlineShoppingCart} from "react-icons/ai"; 
+import {AiOutlineShoppingCart} from "react-icons/ai";  
+import { useAuth } from '../Authentication/Authcontext';
 
 const Nav = () => { 
      const [open,setOpen]=useState(false);  
-     const [count,setCount] =useState(0)
+     const [count,setCount] =useState(0) 
+     const  {user,logout} =useAuth() 
+     const handleLogut=()=>{
+      logout()
+     }
 
   return ( 
     <>
@@ -27,11 +32,25 @@ const Nav = () => {
 
       <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-20 ':'top-[-490px]'}`}>
       <li className="mx-4 my-6 md:my-0">
-        <Link to={'/'} className="text-xl hover:text-cyan-500 duration-500">HOME</Link>
+        <Link to={'/home'} className="text-xl hover:text-cyan-500 duration-500">HOME</Link>
       </li>
       <li className="mx-4 my-6 md:my-0">
-        <Link to={'/categories'} className="text-xl hover:text-cyan-500 duration-500">Explore-more</Link>
-      </li>
+        <Link to={'/'} className="text-xl hover:text-cyan-500 duration-500">Explore-more</Link>
+      </li> 
+      {
+        user ? (<> 
+              <li className='mx-4 my-6 md:my-0'>
+                welcome,{user.firstName}!
+              </li> 
+              <li>
+                <button onClick={handleLogut}>Logout</button>
+              </li>
+        </>) :(
+        <li className="mx-4 my-6 md:my-0" >
+                  <Link to={'/login'} className="text-xl hover:text-cyan-500 duration-500">Login</Link>
+        </li>
+        )
+      }
         <Link to={"/cart"}> 
         <button className="bg-cyan-200 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded ">
         <AiOutlineShoppingCart size={25}/>
