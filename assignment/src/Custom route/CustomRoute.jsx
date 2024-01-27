@@ -3,7 +3,8 @@ import Nav from "../Components/Nav"
 import Home from "../Components/Home" 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 import ExploreMore from "../Components/ExploreMore"
-import Login from "../Components/login" 
+import Login from "../Components/Login"; 
+import SingleProduct from "../Components/SingleProduct"
 import Cart from "../Components/Cart"
 
 const CustomRoute = () => {
@@ -16,7 +17,9 @@ const CustomRoute = () => {
              <Route path="home" element={<Home/>} />
            </Route>
           <Route path="login" element={<Login />} /> 
-          <Route path="cart" element={<Cart/>}/>
+          <Route path="cart" element={<Cart/>}/>  
+          <Route path='products' element={<SingleProduct/>}/>
+
         </Route>
       </Routes>
       </>

@@ -7,7 +7,8 @@ const Context = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const isMounted = useRef(true); // Using a ref to track if the component is mounted 
-  const[cart,setCart]=useState([]) 
+  const[cart,setCart]=useState([])  
+  const [id,setid] =useState(null)
 
   useEffect(() => {
     return () => {
@@ -49,11 +50,15 @@ export const AuthProvider = ({ children }) => {
   } 
   const removeFromCart=(itemId)=>{
     setCart(cart.filter((item)=> item.id !== itemId))
+  } 
+   
+  const handleButtonClick=(id)=>{
+    setid(id)
   }
 
   return (
     <
-    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart}}>
+    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart,handleButtonClick,id}}>
       {children}
     </
   Context.Provider>

@@ -8,7 +8,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [loading, setloading] = useState(true);
-  const {addToCart,cart,user}=useAuth() 
+  const {addToCart,cart,user}=useAuth();
      
   const itemIsInCart =(itemid)=>{
     return user && cart.some((item)=>  item.id === itemid)
@@ -20,7 +20,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://dummyjson.com/products?limit=51"
+          "https://dummyjson.com/products?limit=60"
         );
         console.log(response.data);
         const products = response.data.products;
@@ -56,6 +56,9 @@ const Home = () => {
     const filteredItems = data.filter((item) => item.price > 1000);
     setSearch(filteredItems);
   }; 
+  const setdefaultpage=()=>{
+    setSearch(data)
+  } 
   const handleAddToCartButton=(item)=>{  
     if(user){
     if(itemIsInCart(item.id)){
@@ -101,6 +104,12 @@ const Home = () => {
             >
               more than 1000{" "}
             </button>
+            <button
+              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 "
+              onClick={setdefaultpage}
+            >
+             Default Page
+            </button>
           </div>
 
           <div className="flex flex-row  justify-center flex-wrap  ">
@@ -117,7 +126,7 @@ const Home = () => {
                 handleCartButton={()=>handleAddToCartButton(item)}
               />
             ))}
-          </div>
+          </div> 
         </div>
       )}
     </>

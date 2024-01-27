@@ -16,7 +16,7 @@ const Login = () => {
       sertEmail("");
       setPassword("");
       seterror("");
-      navigate("/");
+      navigate("/home");
     } else {
       seterror("Envalid email or password");
       sertEmail("");

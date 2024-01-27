@@ -1,3 +1,5 @@
+ import { Link } from "react-router-dom"; 
+import { useAuth } from "../Authentication/Authcontext";
 const CardCompnent = ({
   title,
   discount,
@@ -8,8 +10,12 @@ const CardCompnent = ({
   img,
   stock,
   brand, 
-  handleCartButton
-}) => {
+  handleCartButton 
+}) => {  
+  const {handleButtonClick} =useAuth() 
+  const handledclick =(id)=>{
+     handleButtonClick(id)
+  }
   return (
     <>
       <div
@@ -51,10 +57,12 @@ const CardCompnent = ({
             onClick={()=>handleCartButton(id,title,brand,price,description,img)}
              className="bg-cyan-500/80 hover:bg-cyan-500/90 px-6 py-2 rounded-md text-white font-medium tracking-wider transition">
               Add to Cart
+            </button> 
+              <Link to={'/products'} className=" flex-grow flex justify-center items-center ">
+            <button className="px-3 py-2 bg-gray-300/60 hover:bg-gray-300/80 transition rounded-md" onClick={()=>handledclick(id)}>
+             view details
             </button>
-            <button className="flex-grow flex justify-center items-center bg-gray-300/60 hover:bg-gray-300/80 transition rounded-md">
-              <ion-icon name="eye-outline"></ion-icon>
-            </button>
+              </Link>
           </div>
         </div>
       </div>
