@@ -65,7 +65,7 @@ const ExploreMore = () => {
     {
         category.map((item,index)=>{
          return(
-            <button className="bg-gray-200 text-black font-[Poppins] duration-500 mx-2 px-2 my-2 py-2 hover:bg-cyan-600 rounded" key={index} onClick={()=>handleCategoryClick(item)}>{item}</button>
+            <button className="bg-gray-200 text-black font-[Poppins] duration-500 mx-2 px-2 my-2 py-2 hover:bg-violet-600 rounded" key={index} onClick={()=>handleCategoryClick(item)}>{item}</button>
          )
         })
     }

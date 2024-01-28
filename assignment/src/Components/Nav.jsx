@@ -23,7 +23,7 @@ const Nav = () => {
               className="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
       text-gray-800"
             >
-              <span className="text-3xl text-cyan-600 mr-1 pt-2">
+              <span className="text-3xl text-violet-600 mr-1 pt-2">
                 <ion-icon name="logo-ionic"></ion-icon>
               </span>
               Digital stores
@@ -45,7 +45,7 @@ const Nav = () => {
             <li className="mx-4 my-6 md:my-0">
               <Link
                 to={"/home"}
-                className="text-xl hover:text-cyan-500 duration-500"
+                className="text-xl hover:text-violet-500 duration-500"
               >
                 HOME
               </Link>
@@ -53,7 +53,7 @@ const Nav = () => {
             <li className="mx-4 my-6 md:my-0">
               <Link
                 to={"/"}
-                className="text-xl hover:text-cyan-500 duration-500"
+                className="text-xl hover:text-violet-500 duration-500"
               >
                 Explore-more
               </Link>
@@ -62,21 +62,21 @@ const Nav = () => {
               <>
                 <li className="mx-4 my-6 md:my-0">welcome,{user.firstName}!</li>
                 <li>
-                  <button onClick={handleLogut}>Logout</button>
+                  <button onClick={handleLogut} className=" hover:text-violet-500">Logout</button>
                 </li>
               </>
             ) : (
               <li className="mx-4 my-6 md:my-0">
                 <Link
                   to={"/login"}
-                  className="text-xl hover:text-cyan-500 duration-500"
+                  className="text-xl hover:text-violet-500 duration-500"
                 >
                   Login
                 </Link>
               </li>
             )}
             <Link to={"/cart"}>
-              <button className="bg-cyan-200 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded ">
+              <button className="bg-violet-300 text-white font-semibold  duration-500 px-6 py-2 mx-4 hover:bg-violet-800 rounded ">
                 <AiOutlineShoppingCart size={25} />
               </button>
             </Link> 

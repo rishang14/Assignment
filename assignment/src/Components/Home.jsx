@@ -93,30 +93,32 @@ const Home = () => {
             {" "}
             <span className=" px-6 py-2 mx-4">Sort via</span>
             <button
-              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 "
+              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-violet-500 rounded border-violet-200 border-2 "
               onClick={FilterViaPrice500}
             >
               less than 500
             </button>
             <button
-              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 "
+              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-violet-500 rounded border-violet-200 border-2 "
               onClick={FilterViaPrice1000}
             >
               more than 1000{" "}
             </button>
             <button
-              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded border-cyan-100 border-2 "
+              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4  hover:bg-violet-500 rounded border-violet-200 border-2 "
               onClick={setdefaultpage}
             >
              Default Page
             </button>
           </div>
 
-          <div className="flex flex-row  justify-center flex-wrap  ">
-            {search.map((item) => (
+          <div className="flex flex-row  justify-center flex-wrap  " >
+            {search.map((item) =>(  
+              
               <CardCompnent
                 title={item.title}
-                discount={item.discountPercentage}
+                discount={item.discountPercentage} 
+                key={item.id}
                 id={item.id}
                 price={item.price}
                 stock={item.stock}
@@ -125,7 +127,9 @@ const Home = () => {
                 brand={item.brand} 
                 handleCartButton={()=>handleAddToCartButton(item)}
               />
-            ))}
+            ) ,
+            console.log(search,"from home")
+            )}
           </div> 
         </div>
       )}

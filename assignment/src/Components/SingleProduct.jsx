@@ -62,9 +62,9 @@ const SingleProduct = () => {
                     <img src={img[2]} alt="" className='w-24 h-24 rounded-md cursor-pointer' onClick={() => setActiveImage(img[2])}/>
                     <img src={img[3]} alt="" className='w-24 h-24 rounded-md cursor-pointer' onClick={() => setActiveImage(img[3])}/> */} 
                     {
-                        img.map((item)=>{
+                        img.map((item,index)=>{
                             return(
-                                <img src={item} alt="" className='w-24 h-24 rounded-md cursor-pointer' onClick={() => setActiveImage(item)}/>
+                                <img src={item} alt={product.title} key={index} className='w-24 h-24 rounded-md cursor-pointer' onClick={() => setActiveImage(item)}/>
                             )
                         })
                     }

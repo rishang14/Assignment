@@ -1,13 +1,20 @@
 
 import React, { createContext, useContext, useState, useEffect,useRef } from 'react';
 import axios from 'axios';
+import { json } from 'react-router-dom';
 
 const Context = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(()=>{
+    const storeduser= localStorage.getItem('user'); 
+    return storeduser ? JSON.parse(storeduser) : null
+  });
   const isMounted = useRef(true); // Using a ref to track if the component is mounted 
-  const[cart,setCart]=useState([])  
+  const[cart,setCart]=useState(()=>{
+    const storedCart=localStorage.getItem('cart'); 
+    return storedCart ? JSON.parse(storedCart) :[]
+  })  
   const [id,setid] =useState(null)
 
   useEffect(() => {
@@ -28,7 +35,8 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (authenticatedUser && isMounted.current) {
-        setUser(authenticatedUser);
+        setUser(authenticatedUser);  
+        localStorage.setItem('user',JSON.stringify(authenticatedUser))
         return true;
       } else {
         return false;
@@ -42,15 +50,23 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUser(null);
+    setUser(null); 
+    localStorage.removeItem('user')
   }; 
 
   const addToCart=(item)=>{
-    setCart([...cart,item])  
+    setCart((prevcart)=>{
+      const newCart= [...prevcart,item]; 
+      localStorage.setItem('cart',JSON.stringify(newCart)) 
+      return newCart
+    })  
   } 
   const removeFromCart=(itemId)=>{
-    setCart(cart.filter((item)=> item.id !== itemId))
-  } 
+    setCart((prevcart)=>{
+     const newcart=   prevcart.filter((item)=> item.id !== itemId) 
+     localStorage.setItem('cart',JSON.stringify(newcart)) 
+     return newcart;
+})} 
    
   const handleButtonClick=(id)=>{
     setid(id)

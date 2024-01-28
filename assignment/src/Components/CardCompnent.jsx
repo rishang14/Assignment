@@ -20,14 +20,14 @@ const CardCompnent = ({
     <>
       <div
         className="bg-white text-gray-700 w-72 min-h-[8rem] shadow-lg rounded-md overflow-hidden m-2 gap-2"
-        key={id}
+      key={id}
       >
         <img
           className="w-full h-[200px] object-cover rounded-lg"
           src={img}
           alt={title}
         />
-        <div className="p-5 flex flex-col gap-3">
+        <div className="p-5 flex flex-col gap-3" >
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded-full text-xs bg-gray-100">
               stock available-{stock}
@@ -55,7 +55,7 @@ const CardCompnent = ({
           <div className="mt-5 flex gap-2">
             <button  
             onClick={()=>handleCartButton(id,title,brand,price,description,img)}
-             className="bg-cyan-500/80 hover:bg-cyan-500/90 px-6 py-2 rounded-md text-white font-medium tracking-wider transition">
+             className="bg-violet-400 text-white font-semibold px-6 py-2 rounded-md  hover:bg-violet-800 tracking-wider transition">
               Add to Cart
             </button> 
               <Link to={'/products'} className=" flex-grow flex justify-center items-center ">
