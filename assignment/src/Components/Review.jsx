@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../Authentication/Authcontext';
 
 const Review = () => {    
-    const {id}=useAuth()
+    const {id,user}=useAuth()
     const [reviews,setReviews]=useState([]); 
 
     const [newReviews,setNewReviews]=useState('')
@@ -17,7 +17,7 @@ const Review = () => {
     const handlereviewSubmit=()=>{ 
         const reviewid= Date.now(); 
 
-        if(newReviews !=="") 
+        if(newReviews !=="" && user) 
         {
             const updateReview=[...reviews,{id:reviewid,content:newReviews}]; 
             setReviews(updateReview); 
@@ -25,7 +25,8 @@ const Review = () => {
             localStorage.setItem(`reviews_${id}`,JSON.stringify(updateReview))
 
         }else{
-            alert("please write something")
+            alert("either you are not logged in or textarea is blank") 
+            setNewReviews('')
         }
 
     }

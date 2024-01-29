@@ -5,14 +5,11 @@ import { useAuth } from "../Authentication/Authcontext";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
-  const { user, logout,cart } = useAuth(); 
+  const { user, logout} = useAuth(); 
   const handleLogut = () => {
     logout();
   }; 
     
-  const calculateTotal = (cart) => {
-    return cart.reduce((total, item) => total + item.price, 0);
-  };
 
   return (
     <>
@@ -80,8 +77,6 @@ const Nav = () => {
                 <AiOutlineShoppingCart size={25} />
               </button>
             </Link> 
-            <p className="text-xs">items-{cart.length}</p> <br />
-            <p className="text-xs">price-Rs.{calculateTotal(cart)}</p><br />
           </ul>
         </div>
       </div>

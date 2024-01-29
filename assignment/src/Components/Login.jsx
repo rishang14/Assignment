@@ -72,12 +72,19 @@ const Login = () => {
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
                   />{" "}
-                  <p>demo email from api</p>
+                  <p>demo email and pass</p> 
+                  <span>User1</span>
                   <span className="text-xs">
                     email-vcholdcroftg@ucoz.com
                   </span>{" "}
                   <br />
-                  <span className="text-xs">pass-mSPzYZfR</span>
+                  <span className="text-xs">pass-mSPzYZfR</span> 
+                   <br />
+                   <span>user2</span>  
+                   <br />
+                   <span>email:atuny0@sohu.com</span>  
+                   <br />
+                   <span>pass: 9uQFF1Lh</span>
                 </div>
               </div>
               <div>
