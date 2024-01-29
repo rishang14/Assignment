@@ -3,15 +3,17 @@ import axios from "axios";
 import Loader from "./Loader";
 import { useAuth } from "../Authentication/Authcontext"; 
 import Review from "./Review";
-const SingleProduct = () => {
+import { useNavigate } from "react-router-dom";
+const SingleProduct = () => { 
   const [product, setproduct] = useState({});
   const [loading, setloading] = useState(true);
   const [img, setimg] = useState([]);
   const [activeImg, setActiveImage] = useState();
-  const { id, addToCart, user, cart } = useAuth();
+  const { id, addToCart, user, cart } = useAuth();   
+  const navigate=useNavigate()
   const itemIsInCart = (itemid) => {
     return user && cart.some((item) => item.id === itemid);
-  };
+  }; 
 
   useEffect(() => {
     const SingleProduct = async () => {
@@ -20,16 +22,19 @@ const SingleProduct = () => {
           `https://dummyjson.com/products/${id}`
         );
         console.log(data);
-        setproduct(data);
+        setproduct(data); 
         setloading(false);
         setimg(data.images);
         setActiveImage(data.images[0]);
-      } catch (error) {
-        alert("Error while fetching data", error);
+      } catch (error) { 
+     alert(id)  
+     navigate("/home")
+
+
       }
     };
     SingleProduct();
-  }, []);
+  }, [id]);
   const handleAddToCartButton = (item) => {
     if (user) {
       if (itemIsInCart(item.id)) {
@@ -48,7 +53,8 @@ const SingleProduct = () => {
         <div className="absolute top-[40%] left-[45%]">
           <Loader />
         </div>
-      ) : (
+      ) : ( 
+   
         <div className="mt-[60px] mx-auto max-w-[75rem] px-0 py-[4rem]">
           <div className="flex flex-col justify-between lg:flex-row gap-16 lg:items-center">
             <div className="flex flex-col gap-6 lg:w-2/4">
@@ -90,10 +96,12 @@ const SingleProduct = () => {
               </div>
             </div>
           </div> 
-          <Review/>
-        </div>
+         
+        <Review/> 
+        </div>  
+    
       )}
-    </>
+  </>
   );
 };
 
