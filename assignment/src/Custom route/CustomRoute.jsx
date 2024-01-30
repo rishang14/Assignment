@@ -18,8 +18,9 @@ const CustomRoute = () => {
            </Route>
           <Route path="login" element={<Login />} /> 
           <Route path="cart" element={<Cart/>}/>  
-          <Route path='products' element={<SingleProduct/>}/>
+          <Route path='products' element={<SingleProduct/>}/> 
 
+          <Route path="*" element={<ExploreMore />} />
         </Route>
       </Routes>
       </>

@@ -27,7 +27,6 @@ const SingleProduct = () => {
         setimg(data.images);
         setActiveImage(data.images[0]);
       } catch (error) { 
-     alert(id)  
      navigate("/home")
 
 

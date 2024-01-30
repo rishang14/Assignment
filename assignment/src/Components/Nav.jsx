@@ -39,13 +39,14 @@ const Nav = () => {
               open ? "top-20 " : "top-[-490px]"
             }`}
           >
-            <li className="mx-4 my-6 md:my-0">
-              <Link
-                to={"/home"}
-                className="text-xl hover:text-violet-500 duration-500"
-              >
-                HOME
-              </Link>
+            <li className="mx-4 my-6 md:my-0"> 
+            <Link
+              to={"home"}
+              className="text-xl hover:text-violet-500 duration-500"
+            >
+              HOME
+            </Link> 
+            
             </li>
             <li className="mx-4 my-6 md:my-0">
               <Link
@@ -65,14 +66,14 @@ const Nav = () => {
             ) : (
               <li className="mx-4 my-6 md:my-0">
                 <Link
-                  to={"/login"}
+                  to={"login"}
                   className="text-xl hover:text-violet-500 duration-500"
                 >
                   Login
                 </Link>
               </li>
             )}
-            <Link to={"/cart"}>
+            <Link to={"cart"}>
               <button className="bg-violet-300 text-white font-semibold  duration-500 px-6 py-2 mx-4 hover:bg-violet-800 rounded ">
                 <AiOutlineShoppingCart size={25} />
               </button>
