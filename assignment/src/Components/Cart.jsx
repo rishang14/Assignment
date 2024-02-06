@@ -1,12 +1,24 @@
+import { useState } from "react";
 import { useAuth } from "../Authentication/Authcontext"  
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => { 
     const {cart,removeFromCart,setCart,}=useAuth()  
+    const [quantity,setQuantity]=useState({})
     const navigate=useNavigate()
     const calculateTotal = (cart) => {
-        return cart.reduce((total, item) => total + item.price, 0);
-      }; 
+        return cart.reduce((total, item) => total + item.price * (quantity[item.id] || 1), 0);
+      };  
+
+      const handleIncrement = (itemId) => {
+        setQuantity((prevQuantity) => ({ ...prevQuantity, [itemId]: (prevQuantity[itemId] || 0) + 1 }));
+      };
+    
+      const handleDecrement = (itemId) => {
+        if (quantity[itemId] && quantity[itemId] > 1) {
+          setQuantity((prevQuantity) => ({ ...prevQuantity, [itemId]: prevQuantity[itemId] - 1 }));
+        } 
+      };
       const handleCheckout=()=>{
         if(cart.length>0){
             alert("your order successed"); 
@@ -31,7 +43,12 @@ const Cart = () => {
               <div className="flex items-center flex-wrap space-x-4">
                 <p>{item.brand}</p>
                 <p>{item.title}</p>
-                <p className="text-sm">Price: {item.price}</p>
+                <p className="text-sm">Price:{(quantity[item.id] || 1 ) * item.price}</p>
+              </div> 
+              <div>
+                <span  className="cursor-pointer" onClick={()=>handleDecrement(item.id)}>⬅️</span>  
+                {quantity[item.id] || 1}
+                <span className="cursor-pointer" onClick={()=> handleIncrement(item.id)}>➡️</span>
               </div>
               <button
                 className="mt-2 md:mt-0 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500"

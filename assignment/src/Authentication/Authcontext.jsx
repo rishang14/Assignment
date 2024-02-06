@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     return storedCount  ? parseInt(storedCount,10) : 0
   }) 
   useEffect(()=>{
-    localStorage.setItem('count', count.toString());  
+    localStorage.setItem('count', count.toString());   
   },[count])
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     setCart((prevcart)=>{
      const newcart=   prevcart.filter((item)=> item.id !== itemId) 
      localStorage.setItem('cart',JSON.stringify(newcart))  
-     setCount(prevcount => prevcount -1)
+     setCount(prevcount => Math.max(prevcount -1,0))
      return newcart;
 })} 
    
@@ -90,4 +90,4 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   return useContext(Context);
-};
+}; 

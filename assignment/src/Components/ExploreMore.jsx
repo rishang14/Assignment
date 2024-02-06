@@ -9,7 +9,7 @@ const ExploreMore = () => {
     const[category,setCategory]=useState([]); 
     const [categoryData,setCategoryData]=useState([]) 
     const [loader, setloader]= useState(true)  
-    const {addToCart,cart,user}=useAuth() 
+    const {addToCart,cart,user,setCount}=useAuth() 
      
     const itemIsInCart =(itemid)=>{
       return user && cart.some((item)=>  item.id === itemid)
@@ -47,8 +47,8 @@ const ExploreMore = () => {
       if(itemIsInCart(item.id)){
         alert("item already in a cart")
       } else{
-
-        addToCart(item); 
+       addToCart(item);  
+       setCount(prevCount => prevCount +1)
         alert("item added to the cart")
       }
     }else{ 
