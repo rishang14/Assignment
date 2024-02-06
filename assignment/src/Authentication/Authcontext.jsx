@@ -14,7 +14,14 @@ export const AuthProvider = ({ children }) => {
     const storedCart=localStorage.getItem('cart'); 
     return storedCart ? JSON.parse(storedCart) :[]
   })  
-  const [id,setid] =useState(null)
+  const [id,setid] =useState(null) 
+  const [count,setCount]=useState(()=>{
+    const  storedCount=localStorage.getItem('count'); 
+    return storedCount  ? parseInt(storedCount,10) : 0
+  }) 
+  useEffect(()=>{
+    localStorage.setItem('count', count.toString());  
+  },[count])
 
   useEffect(() => {
     return () => {
@@ -63,7 +70,8 @@ export const AuthProvider = ({ children }) => {
   const removeFromCart=(itemId)=>{
     setCart((prevcart)=>{
      const newcart=   prevcart.filter((item)=> item.id !== itemId) 
-     localStorage.setItem('cart',JSON.stringify(newcart)) 
+     localStorage.setItem('cart',JSON.stringify(newcart))  
+     setCount(prevcount => prevcount -1)
      return newcart;
 })} 
    
@@ -73,7 +81,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <
-    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart,handleButtonClick,id}}>
+    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart,handleButtonClick,id,count,setCount}}>
       {children}
     </
   Context.Provider>

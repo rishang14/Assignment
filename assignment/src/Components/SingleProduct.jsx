@@ -9,7 +9,7 @@ const SingleProduct = () => {
   const [loading, setloading] = useState(true);
   const [img, setimg] = useState([]);
   const [activeImg, setActiveImage] = useState();
-  const { id, addToCart, user, cart } = useAuth();   
+  const { id, addToCart, user, cart,setCount } = useAuth();   
   const navigate=useNavigate()
   const itemIsInCart = (itemid) => {
     return user && cart.some((item) => item.id === itemid);
@@ -39,7 +39,8 @@ const SingleProduct = () => {
       if (itemIsInCart(item.id)) {
         alert("item already in a cart");
       } else {
-        addToCart(item);
+        addToCart(item); 
+        setCount(prevcount => prevcount +1)
         alert("item added to the cart");
       }
     } else {

@@ -5,7 +5,7 @@ import { useAuth } from "../Authentication/Authcontext";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
-  const { user, logout} = useAuth(); 
+  const { user, logout,count} = useAuth(); 
   const handleLogut = () => {
     logout();
   }; 
@@ -75,7 +75,8 @@ const Nav = () => {
             )}
             <Link to={"cart"}>
               <button className="bg-violet-300 text-white font-semibold  duration-500 px-6 py-2 mx-4 hover:bg-violet-800 rounded ">
-                <AiOutlineShoppingCart size={25} />
+                <AiOutlineShoppingCart size={25}  /> 
+                {count}
               </button>
             </Link> 
           </ul>

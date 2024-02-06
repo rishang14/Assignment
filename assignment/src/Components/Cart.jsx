@@ -2,7 +2,7 @@ import { useAuth } from "../Authentication/Authcontext"
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => { 
-    const {cart,removeFromCart,setCart}=useAuth()  
+    const {cart,removeFromCart,setCart,}=useAuth()  
     const navigate=useNavigate()
     const calculateTotal = (cart) => {
         return cart.reduce((total, item) => total + item.price, 0);

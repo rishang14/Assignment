@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CardCompnent from "./CardCompnent";
-import Loader from "./Loader"; 
+import Loader from "./Loader";
 import { useAuth } from "../Authentication/Authcontext";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [loading, setloading] = useState(true);
-  const {addToCart,cart,user}=useAuth();
-     
-  const itemIsInCart =(itemid)=>{
-    return user && cart.some((item)=>  item.id === itemid)
-  }
+  const { addToCart, cart, user,setCount } = useAuth();
 
+  const itemIsInCart = (itemid) => {
+    return user && cart.some((item) => item.id === itemid);
+  };
 
   // fetchings products
   useEffect(() => {
@@ -55,23 +54,24 @@ const Home = () => {
   const FilterViaPrice1000 = () => {
     const filteredItems = data.filter((item) => item.price > 1000);
     setSearch(filteredItems);
-  }; 
-  const setdefaultpage=()=>{
-    setSearch(data)
-  } 
-  const handleAddToCartButton=(item)=>{  
-    if(user){
-    if(itemIsInCart(item.id)){
-      alert("item already in a cart")
-    } else{
+  };
+  const setdefaultpage = () => {
+    setSearch(data);
+  };
+  const handleAddToCartButton = (item) => {
+    if (user) {
+      if (itemIsInCart(item.id)) {
+        alert("item already in a cart"); 
+      } else {
+        addToCart(item); 
+        setCount(prevcount => prevcount + 1)
+        alert("item added to the cart"); 
 
-      addToCart(item); 
-      alert("item added to the cart")
+      }
+    } else {
+      alert("please login to access these feature");
     }
-  }else{ 
-    alert("please login to access these feature")
-
-  }}
+  };
 
   return (
     <>
@@ -108,29 +108,26 @@ const Home = () => {
               className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4  hover:bg-violet-500 rounded border-violet-200 border-2 "
               onClick={setdefaultpage}
             >
-             Default Page
+              Default Page
             </button>
           </div>
 
-          <div className="flex flex-row  justify-center flex-wrap  " >
-            {search.map((item) =>(  
-              
+          <div className="flex flex-row  justify-center flex-wrap  ">
+            {search.map((item) => (
               <CardCompnent
                 title={item.title}
-                discount={item.discountPercentage} 
+                discount={item.discountPercentage}
                 key={item.id}
                 id={item.id}
                 price={item.price}
                 stock={item.stock}
                 rating={item.rating}
                 img={item.thumbnail}
-                brand={item.brand} 
-                handleCartButton={()=>handleAddToCartButton(item)}
+                brand={item.brand}
+                handleCartButton={() => handleAddToCartButton(item)}
               />
-            ) ,
-            console.log(search,"from home")
-            )}
-          </div> 
+            ))}
+          </div>
         </div>
       )}
     </>
