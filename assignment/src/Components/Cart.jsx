@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../Authentication/Authcontext"  
-import { json, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom"; 
+import PaymentForm from "../Payment/Payment.form";
 
 const Cart = () => { 
     const {cart,removeFromCart,setCart,user,setCount}=useAuth()  
@@ -76,7 +77,8 @@ const Cart = () => {
         </div>
         <button className="w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={() => handleCheckout()}>
           Check out
-        </button>
+        </button> 
+        <PaymentForm/>
       </div>
     </div> :   <div className="mt-6 h-[200px] rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0 md:w-1/3">
         <hr className="my-4" />
