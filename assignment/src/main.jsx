@@ -4,15 +4,11 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./Authentication/Authcontext.jsx"; 
-import {Elements} from '@stripe/react-stripe-js'; 
-import { stripePromise } from "./Stripe/Stripe.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <AuthProvider>  
-      <Elements stripe={stripePromise} >
+    <AuthProvider>      
       <App />
-      </Elements>
     </AuthProvider>
   </BrowserRouter>
 );
