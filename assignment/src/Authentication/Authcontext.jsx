@@ -10,17 +10,22 @@ export const AuthProvider = ({ children }) => {
     return storeduser ? JSON.parse(storeduser) : null
   });
   const isMounted = useRef(true); // Using a ref to track if the component is mounted 
-  const[cart,setCart]=useState(()=>{
-    const storedCart=localStorage.getItem('cart'); 
-    return storedCart ? JSON.parse(storedCart) :[]
+  const[cart,setCart]=useState(()=>{ 
+   const storedCart=localStorage.getItem('cart'); 
+   return storedCart ? JSON.parse(storedCart) :[]
   })  
   const [id,setid] =useState(null) 
-  const [count,setCount]=useState(()=>{
+  const [count,setCount]=useState(()=>{ 
     const  storedCount=localStorage.getItem('count'); 
     return storedCount  ? parseInt(storedCount,10) : 0
-  }) 
-  useEffect(()=>{
-    localStorage.setItem('count', count.toString());   
+  })  
+  const logout = () => {
+    setUser(null); 
+    localStorage.removeItem('user')
+  }; 
+
+  useEffect(()=>{ 
+      localStorage.setItem('count', count.toString());   
   },[count])
 
   useEffect(() => {
@@ -55,17 +60,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    setUser(null); 
-    localStorage.removeItem('user')
-  }; 
 
-  const addToCart=(item)=>{
-    setCart((prevcart)=>{
-      const newCart= [...prevcart,item]; 
-      localStorage.setItem('cart',JSON.stringify(newCart)) 
-      return newCart
-    })  
+
+  const addToCart=(item)=>{ 
+    if(user){
+      
+      setCart((prevcart)=>{
+        const newCart= [...prevcart,item]; 
+        localStorage.setItem('cart',JSON.stringify(newCart)) 
+        return newCart
+      })  
+    }
   } 
   const removeFromCart=(itemId)=>{
     setCart((prevcart)=>{

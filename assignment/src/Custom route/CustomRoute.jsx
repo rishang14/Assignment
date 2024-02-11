@@ -12,9 +12,9 @@ const CustomRoute = () => {
       <>  
        <Routes>
         <Route path="/" element={<Nav />}>
-          <Route index element={<ExploreMore />} />
+          <Route index element={<Home />} />
            <Route  element={<ProtectedRoute/>}>
-             <Route path="home" element={<Home/>} />
+             <Route path="exploremore" element={<ExploreMore/>} />
            </Route>
           <Route path="login" element={<Login />} /> 
           <Route path="cart" element={<Cart/>}/>  

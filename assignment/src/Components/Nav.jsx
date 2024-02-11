@@ -41,7 +41,7 @@ const Nav = () => {
           >
             <li className="mx-4 my-6 md:my-0"> 
             <Link
-              to={"home"}
+              to={"/"}
               className="text-xl hover:text-violet-500 duration-500"
             >
               HOME
@@ -50,7 +50,7 @@ const Nav = () => {
             </li>
             <li className="mx-4 my-6 md:my-0">
               <Link
-                to={"/"}
+                to={"exploremore"}
                 className="text-xl hover:text-violet-500 duration-500"
               >
                 Explore-more
@@ -79,7 +79,9 @@ const Nav = () => {
                
               </button>
             </Link>  
-            <span>{count}</span>
+            {
+              user ?  <span>{count}</span> : <></>
+            } 
           </ul>
         </div>
       </div>
