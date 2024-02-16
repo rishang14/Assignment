@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../Authentication/Authcontext"  
-import {  useNavigate } from "react-router-dom"; 
-import PaymentForm from "../Payment/Payment.form";
+import {  useNavigate } from "react-router-dom";  
 
 const Cart = () => { 
     const {cart,removeFromCart,setCart,user,setCount}=useAuth()  
@@ -27,14 +26,16 @@ const Cart = () => {
             setCart(()=> {
 
              const newCart=[] 
-             localStorage.setItem('cart',JSON.stringify(newCart))
+             localStorage.setItem('cart',JSON.stringify(newCart)) 
+             return newCart
             }
             );   
             navigate("/")
 
             
         }else{
-            alert("Cart is empty")
+            alert("Cart is empty") 
+            // setCart([])
         }
       }
     
@@ -77,8 +78,7 @@ const Cart = () => {
         </div>
         <button className="w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={() => handleCheckout()}>
           Check out
-        </button> 
-        <PaymentForm/>
+        </button>  
       </div>
     </div> :   <div className="mt-6 h-[200px] rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0 md:w-1/3">
         <hr className="my-4" />
