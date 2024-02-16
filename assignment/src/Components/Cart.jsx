@@ -27,7 +27,7 @@ const Cart = () => {
 
              const newCart=[] 
              localStorage.setItem('cart',JSON.stringify(newCart)) 
-             return newCart
+             return newCart;
             }
             );   
             navigate("/")
@@ -91,8 +91,6 @@ const Cart = () => {
         </button>
       </div>
     }
-     
-   
     </div>
   
   
