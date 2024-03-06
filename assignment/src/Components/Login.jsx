@@ -71,20 +71,14 @@ const Login = () => {
                     autoComplete="current-password"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
-                  />{" "}
-                  <p>demo email and pass</p> 
-                  <span>User1</span>
-                  <span className="text-xs">
-                    email-vcholdcroftg@ucoz.com
-                  </span>{" "}
-                  <br />
-                  <span className="text-xs">pass-mSPzYZfR</span> 
-                   <br />
-                   <span>user2</span>  
-                   <br />
-                   <span>email:atuny0@sohu.com</span>  
-                   <br />
-                   <span>pass: 9uQFF1Lh</span>
+                  />
+                  <div className="flex items-center justify-center flex-col">
+                    <p>Demo email and pass</p>
+                    <span className="text-xs">email-vcholdcroftg@ucoz.com</span>
+                    <span className="text-xs">pass-mSPzYZfR</span>
+                    <span className="text-xs">email:atuny0@sohu.com</span>
+                    <span className="text-xs">pass: 9uQFF1Lh</span>
+                  </div>
                 </div>
               </div>
               <div>
@@ -93,7 +87,7 @@ const Login = () => {
                   className="flex w-full justify-center rounded-md bg-violet-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Login
-                </button>
+                </button> 
               </div>
             </form>
 

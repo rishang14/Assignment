@@ -17,7 +17,12 @@ const Cart = () => {
       const handleDecrement = (itemId) => {
         if (quantity[itemId] && quantity[itemId] > 1) {
           setQuantity((prevQuantity) => ({ ...prevQuantity, [itemId]: prevQuantity[itemId] - 1 }));
-        } 
+        } else{ 
+        const removeItem=  confirm("You want to remove this item") 
+         if(removeItem){
+           removeFromCart(itemId)
+         }
+        }
       };
       const handleCheckout=()=>{
         if(cart.length>0){
@@ -78,7 +83,7 @@ const Cart = () => {
         </div>
         <button className="w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={() => handleCheckout()}>
           Check out
-        </button>  
+        </button>   
       </div>
     </div> :   <div className="mt-6 h-[200px] rounded-lg border bg-white p-4 md:p-6 shadow-md md:mt-0 md:w-1/3">
         <hr className="my-4" />

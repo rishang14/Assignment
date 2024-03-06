@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.get('https://dummyjson.com/users');
       const users = response.data.users; 
-      console.log(users)
+      console.log(users) 
 
       const authenticatedUser = users.find(
         (item) => item.email === email && item.password === password
@@ -58,7 +58,8 @@ export const AuthProvider = ({ children }) => {
       }
       return false;
     }
-  };
+  }; 
+   
 
 
 
@@ -86,7 +87,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <
-    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart,handleButtonClick,id,count,setCount}}>
+    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart,handleButtonClick,id,count,setCount }}>
       {children}
     </
   Context.Provider>

@@ -5,7 +5,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 import ExploreMore from "../Components/ExploreMore"
 import Login from "../Components/Login"; 
 import SingleProduct from "../Components/SingleProduct"
-import Cart from "../Components/Cart"
+import Cart from "../Components/Cart" 
 
 const CustomRoute = () => {
   return (
