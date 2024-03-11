@@ -8,20 +8,41 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [loading, setloading] = useState(true);
-  const { addToCart, cart, user,setCount } = useAuth();
+  const { addToCart, cart, user,setCount } = useAuth(); 
+  const [skip,setSkip]=useState(0) 
+  const [allProduct,setAllProducts]=useState(0)
 
   const itemIsInCart = (itemid) => {
     return user && cart.some((item) => item.id === itemid);
   };
 
-  // fetchings products
+  // fetchings total no of products 
+  useEffect(()=>{
+    const fetchallProduct= async()=>{ 
+      try{
+        const response=await axios.get('https://dummyjson.com/products') 
+        console.log(response.data.total) 
+        setAllProducts(response.data.total)
+      } 
+      catch(error){
+        alert(error)
+      }
+
+    } 
+    fetchallProduct() 
+    return()=>{
+      fetchallProduct()
+    }
+  },[]) 
+   
+  // fetching products to render 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://dummyjson.com/products?limit=60"
+          `https://dummyjson.com/products?limit=18&skip=${skip}`
         );
-        console.log(response.data);
+       
         const products = response.data.products;
         setData(products);
         setSearch(products);
@@ -33,7 +54,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [skip]);
 
   // filterig items
   const Filter = (e) => {
@@ -57,7 +78,8 @@ const Home = () => {
   };
   const setdefaultpage = () => {
     setSearch(data);
-  };
+  }; 
+  // Add to cart button 
   const handleAddToCartButton = (item) => {
     if (user) {
       if (itemIsInCart(item.id)) {
@@ -71,7 +93,14 @@ const Home = () => {
     } else {
       alert("please login to access these feature");
     }
+  }; 
+   
+  //  handling pagination click  
+  const handlePaginationClick = (index) => {
+    setSkip(index * 18);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  
 
   return (
     <>
@@ -126,8 +155,29 @@ const Home = () => {
                 brand={item.brand}
                 handleCartButton={() => handleAddToCartButton(item)}
               />
-            ))}
+            ))} 
           </div>
+{/* 
+            <button className="border border-cyan-400 p-3 " onClick={()=>setskip((prevcount)=> prevcount + 0)} >1</button>
+            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>2</button>
+            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>3</button>
+            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>4</button>
+            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>5</button>
+            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>6</button> */} 
+              <div className="flex items-center justify-center m-4 gap-[20px]">
+            {Array.from({ length: Math.ceil(allProduct / 18) }).map(
+              (_, index) => (
+                <button
+                  key={index + 1}
+                  className="border border-cyan-400 p-3 rounded-md"
+                  onClick={() => handlePaginationClick(index)}
+                >
+                  {index + 1}
+                </button>
+              )
+            )}
+          </div>
+          
         </div>
       )}
     </>
