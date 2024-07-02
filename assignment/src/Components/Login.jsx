@@ -48,7 +48,7 @@ const Login = () => {
                     autoComplete="email"
                     onChange={(e) => sertEmail(e.target.value)}
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                    className="block w-full p-[4px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -65,19 +65,18 @@ const Login = () => {
                   <input
                     id="password"
                     name="password"
-                    type="password"
+                    type="password" 
+                    
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="current-password"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
+                    className="block w-full p-[4px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6"
                   />
                   <div className="flex items-center justify-center flex-col">
                     <p>Demo email and pass</p>
-                    <span className="text-xs">email-vcholdcroftg@ucoz.com</span>
-                    <span className="text-xs">pass-mSPzYZfR</span>
-                    <span className="text-xs">email:atuny0@sohu.com</span>
-                    <span className="text-xs">pass: 9uQFF1Lh</span>
+                    <span className="text-xs">email: emily.johnson@x.dummyjson.com</span>
+                    <span className="text-xs">pass : emilyspass</span>
                   </div>
                 </div>
               </div>

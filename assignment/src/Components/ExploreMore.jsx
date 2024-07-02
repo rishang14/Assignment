@@ -37,10 +37,12 @@ const ExploreMore = () => {
       
     },[])   
       const handleCategoryClick=async(categoryValues)=>{
-        const response= await axios.get(`https://dummyjson.com/products/category/${categoryValues}`) 
+        const response= await axios.get(`https://dummyjson.com/products/category/${categoryValues}`)  
+        console.log(response,"cateogory")
         setCategoryData(response.data.products)
       }
-    console.log(categoryData) 
+    console.log(categoryData,"DataTransfer")  
+    console.log(category)
 
     const handleAddToCartButton=(item)=>{  
       if(user){
@@ -65,7 +67,7 @@ const ExploreMore = () => {
     {
         category.map((item,index)=>{
          return(
-            <button className="bg-gray-200 text-black font-[Poppins] duration-500 mx-2 px-2 my-2 py-2 hover:bg-violet-600 rounded" key={index} onClick={()=>handleCategoryClick(item)}>{item}</button>
+            <button className="bg-gray-200 text-black font-[Poppins] duration-500 mx-2 px-2 my-2 py-2 hover:bg-violet-600 rounded" key={index} onClick={()=>handleCategoryClick(item.slug)}>{item.name}</button>
          )
         })
     }
