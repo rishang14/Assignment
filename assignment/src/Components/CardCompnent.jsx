@@ -25,7 +25,8 @@ const CardCompnent = ({
         <img
           className="w-full h-[200px] object-cover rounded-lg"
           src={img}
-          alt={title}
+          alt={title} 
+        
         />
         <div className="p-5 flex flex-col gap-3" >
           <div className="flex items-center gap-2">

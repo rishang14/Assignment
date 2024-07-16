@@ -8,42 +8,41 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [loading, setloading] = useState(true);
-  const { addToCart, cart, user,setCount } = useAuth(); 
-  const [skip,setSkip]=useState(0) 
-  const [allProduct,setAllProducts]=useState(0)
+  const { addToCart, cart, user, setCount } = useAuth();
+  const [skip, setSkip] = useState(0);
+  const [allProduct, setAllProducts] = useState(0);
 
   const itemIsInCart = (itemid) => {
     return user && cart.some((item) => item.id === itemid);
   };
 
-  // fetchings total no of products 
-  useEffect(()=>{
-    const fetchallProduct= async()=>{ 
-      try{
-        const response=await axios.get('https://dummyjson.com/products') 
-        console.log(response.data.total) 
-        setAllProducts(response.data.total)
-      } 
-      catch(error){
-        alert(error)
+  // fetchings total no of products
+  useEffect(() => {
+    const fetchallProduct = async () => {
+      try {
+        const response = await axios.get("https://dummyjson.com/products");
+        console.log(response.data.total);
+        setAllProducts(response.data.total);
+      } catch (error) {
+        alert(error);
       }
+    };
+    fetchallProduct();
+    return () => {
+      fetchallProduct();
+    };
+  }, []);
 
-    } 
-    fetchallProduct() 
-    return()=>{
-      fetchallProduct()
-    }
-  },[]) 
-   
-  // fetching products to render 
+  // fetching products to render
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `https://dummyjson.com/products?limit=18&skip=${skip}`
         );
-       
+
         const products = response.data.products;
+        console.log(products);
         setData(products);
         setSearch(products);
         setloading(false);
@@ -78,29 +77,27 @@ const Home = () => {
   };
   const setdefaultpage = () => {
     setSearch(data);
-  }; 
-  // Add to cart button 
+  };
+  // Add to cart button
   const handleAddToCartButton = (item) => {
     if (user) {
       if (itemIsInCart(item.id)) {
-        alert("item already in a cart"); 
+        alert("item already in a cart");
       } else {
-        addToCart(item); 
-        setCount(prevcount => prevcount + 1)
-        alert("item added to the cart"); 
-
+        addToCart(item);
+        setCount((prevcount) => prevcount + 1);
+        alert("item added to the cart");
       }
     } else {
       alert("please login to access these feature");
     }
-  }; 
-   
-  //  handling pagination click  
+  };
+
+  //  handling pagination click
   const handlePaginationClick = (index) => {
     setSkip(index * 18);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  
 
   return (
     <>
@@ -120,25 +117,27 @@ const Home = () => {
           </div>
           <div className="flex justify-center flex-row mt-2 mb-3 flex-wrap">
             {" "}
-            <span className=" px-6 py-2 mx-4">Sort via</span>
-            <button
-              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-violet-500 rounded border-violet-200 border-2 "
-              onClick={FilterViaPrice500}
-            >
-              less than 500
-            </button>
-            <button
-              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-violet-500 rounded border-violet-200 border-2 "
-              onClick={FilterViaPrice1000}
-            >
-              more than 1000{" "}
-            </button>
-            <button
-              className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4  hover:bg-violet-500 rounded border-violet-200 border-2 "
-              onClick={setdefaultpage}
-            >
-              Default Page
-            </button>
+            <span className=" px-6 py-2 mx-4">Sort via :</span>
+            <div className="flex  lg:flex-row flex-col gap-2">
+              <button
+                className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-violet-500 rounded border-violet-200 border-2 "
+                onClick={FilterViaPrice500}
+              >
+                less than 500
+              </button>
+              <button
+                className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-violet-500 rounded border-violet-200 border-2 "
+                onClick={FilterViaPrice1000}
+              >
+                more than 1000{" "}
+              </button>
+              <button
+                className=" text-black font-[Poppins] duration-500 px-6 py-2 mx-4  hover:bg-violet-500 rounded border-violet-200 border-2 "
+                onClick={setdefaultpage}
+              >
+                Default Page
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-row  justify-center flex-wrap  ">
@@ -155,16 +154,9 @@ const Home = () => {
                 brand={item.brand}
                 handleCartButton={() => handleAddToCartButton(item)}
               />
-            ))} 
+            ))}
           </div>
-{/* 
-            <button className="border border-cyan-400 p-3 " onClick={()=>setskip((prevcount)=> prevcount + 0)} >1</button>
-            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>2</button>
-            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>3</button>
-            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>4</button>
-            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>5</button>
-            <button className="border border-cyan-400 p-3" onClick={()=>setskip((prevcount)=> prevcount +18)}>6</button> */} 
-              <div className="flex items-center justify-center m-4 gap-[20px]">
+          <div className="flex items-center justify-center m-4 gap-[20px]">
             {Array.from({ length: Math.ceil(allProduct / 18) }).map(
               (_, index) => (
                 <button
@@ -177,7 +169,6 @@ const Home = () => {
               )
             )}
           </div>
-          
         </div>
       )}
     </>
