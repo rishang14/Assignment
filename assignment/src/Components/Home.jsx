@@ -1,48 +1,38 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useCallback } from "react";
 import axios from "axios";
 import CardCompnent from "./CardCompnent";
 import Loader from "./Loader";
-import { useAuth } from "../Authentication/Authcontext";
+import { useAuth } from "../Authentication/Authcontext"; 
+ 
+const debounce=(func,delay) =>{
+  let debounceTimer;
+  return (...values) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func(...values), delay);
+  };
+}
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [loading, setloading] = useState(true);
   const { addToCart, cart, user, setCount } = useAuth();
-  const [skip, setSkip] = useState(0);
-  const [allProduct, setAllProducts] = useState(0);
+  const [page, setPage] = useState(1);
 
   const itemIsInCart = (itemid) => {
     return user && cart.some((item) => item.id === itemid);
   };
-
-  // fetchings total no of products
-  useEffect(() => {
-    const fetchallProduct = async () => {
-      try {
-        const response = await axios.get("https://dummyjson.com/products");
-        console.log(response.data.total);
-        setAllProducts(response.data.total);
-      } catch (error) {
-        alert(error);
-      }
-    };
-    fetchallProduct();
-    return () => {
-      fetchallProduct();
-    };
-  }, []);
 
   // fetching products to render
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://dummyjson.com/products?limit=18&skip=${skip}`
+          `https://dummyjson.com/products?limit=194`
         );
 
         const products = response.data.products;
-        console.log(products);
+        // console.log(response.data.products);
         setData(products);
         setSearch(products);
         setloading(false);
@@ -53,19 +43,22 @@ const Home = () => {
       }
     };
     fetchData();
-  }, [skip]);
-
-  // filterig items
+  }, []);
+  // filterig items 
+  const handledebounceFilter=useCallback(
+    debounce((searchItem) => {
+      const filteredItems = data.filter((item) =>
+        item.category.toLowerCase().includes(searchItem)
+      );
+      setSearch(filteredItems);
+    }, 3000), // Adjust the delay (in milliseconds) as needed
+    [data]
+  );
   const Filter = (e) => {
     const searchItem = e.target.value.toLowerCase();
-
-    const filteredItems = data.filter((item) =>
-      item.title.toLowerCase().includes(searchItem)
-    );
-
-    setSearch(filteredItems);
+    handledebounceFilter(searchItem)
   };
-
+  console.log(search, "search");
   const FilterViaPrice500 = () => {
     const filteredItems = data.filter((item) => item.price < 500);
     setSearch(filteredItems);
@@ -78,6 +71,7 @@ const Home = () => {
   const setdefaultpage = () => {
     setSearch(data);
   };
+
   // Add to cart button
   const handleAddToCartButton = (item) => {
     if (user) {
@@ -95,7 +89,7 @@ const Home = () => {
 
   //  handling pagination click
   const handlePaginationClick = (index) => {
-    setSkip(index * 18);
+    setPage(index + 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -141,7 +135,7 @@ const Home = () => {
           </div>
 
           <div className="flex flex-row  justify-center flex-wrap  ">
-            {search.map((item) => (
+            {search.slice(page * 18 - 18, page * 18).map((item) => (
               <CardCompnent
                 title={item.title}
                 discount={item.discountPercentage}
@@ -157,7 +151,7 @@ const Home = () => {
             ))}
           </div>
           <div className="flex items-center justify-center m-4 gap-[20px]">
-            {Array.from({ length: Math.ceil(allProduct / 18) }).map(
+            {Array.from({ length: Math.ceil(search.length / 18) }).map(
               (_, index) => (
                 <button
                   key={index + 1}
