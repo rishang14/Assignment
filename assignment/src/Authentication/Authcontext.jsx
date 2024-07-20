@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null); 
     localStorage.removeItem('user')
-  }; 
+  };  
 
   useEffect(()=>{ 
       localStorage.setItem('count', count.toString());   
@@ -82,12 +82,12 @@ export const AuthProvider = ({ children }) => {
 })} 
    
   const handleButtonClick=(id)=>{
-    setid(id)
+    setid(id) 
   }
 
   return (
     <
-    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart,handleButtonClick,id,count,setCount }}>
+    Context.Provider value={{ user, login, logout ,addToCart,cart,removeFromCart,setCart,handleButtonClick,id,count,setCount, }}>
       {children}
     </
   Context.Provider>

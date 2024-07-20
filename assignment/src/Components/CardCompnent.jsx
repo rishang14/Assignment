@@ -1,5 +1,6 @@
  import { Link } from "react-router-dom"; 
-import { useAuth } from "../Authentication/Authcontext";
+import { useAuth } from "../Authentication/Authcontext"; 
+import MyImage from "./ImgOptimise";
 const CardCompnent = ({
   title,
   discount,
@@ -13,7 +14,7 @@ const CardCompnent = ({
   handleCartButton 
 }) => {  
   const {handleButtonClick} =useAuth() 
-  const handledclick =(id)=>{
+  const handledclick =(id)=>{ 
      handleButtonClick(id)
   }
   return (
@@ -22,12 +23,7 @@ const CardCompnent = ({
         className="bg-white text-gray-700 w-72 min-h-[8rem] shadow-lg rounded-md overflow-hidden m-2 gap-2"
       key={id}
       >
-        <img
-          className="w-full h-[200px] object-cover rounded-lg"
-          src={img}
-          alt={title} 
-        
-        />
+        <MyImage image={img} alt={title} width={"full"} height={"200px"}/>
         <div className="p-5 flex flex-col gap-3" >
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded-full text-xs bg-gray-100">
@@ -41,7 +37,7 @@ const CardCompnent = ({
             {title}
           </h2>
           <div>
-            <span className="text-xl font-bold">Rs- {price}</span>
+            <span className="text-xl font-bold">Rs- {(price).toFixed(2)}</span>
             <div className="flex items-center gap-2 mt-1">
               <span className="bg-green-400 px-1.5 py-0.5 rounded-md text-xs text-white">
                 discount- {discount}

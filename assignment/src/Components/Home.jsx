@@ -1,16 +1,16 @@
-import { useState, useEffect,useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import CardCompnent from "./CardCompnent";
 import Loader from "./Loader";
-import { useAuth } from "../Authentication/Authcontext"; 
- 
-const debounce=(func,delay) =>{
+import { useAuth } from "../Authentication/Authcontext";
+
+const debounce = (func, delay) => {
   let debounceTimer;
   return (...values) => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => func(...values), delay);
   };
-}
+};
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -44,19 +44,20 @@ const Home = () => {
     };
     fetchData();
   }, []);
-  // filterig items 
-  const handledebounceFilter=useCallback(
+  // filterig items
+
+  const handledebounceFilter = useCallback(
     debounce((searchItem) => {
       const filteredItems = data.filter((item) =>
         item.category.toLowerCase().includes(searchItem)
       );
       setSearch(filteredItems);
-    }, 3000), // Adjust the delay (in milliseconds) as needed
+    }, 2000),
     [data]
   );
   const Filter = (e) => {
     const searchItem = e.target.value.toLowerCase();
-    handledebounceFilter(searchItem)
+    handledebounceFilter(searchItem);
   };
   console.log(search, "search");
   const FilterViaPrice500 = () => {
