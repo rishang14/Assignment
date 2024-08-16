@@ -59,12 +59,12 @@ const Cart = () => {
             <div className="flex items-center flex-wrap space-x-4">
               <p>{item.brand}</p>
               <p>{item.title}</p>
-              <p className="text-sm">Price:{(quantity[item.id] || 1 ) * item.price}</p> 
+              <p className="text-sm">Price:{parseFloat((quantity[item.id] || 1) * item.price).toFixed(2)}</p> 
             </div> 
-            <div>
-              <span  className="cursor-pointer p-2" onClick={()=>handleDecrement(item.id)}>⬅️</span>  
+            <div className="flex p-2 ">
+              <span  className="cursor-pointer " onClick={()=>handleDecrement(item.id)}>⬅️</span>  
               {quantity[item.id] || 1}
-              <span className="cursor-pointer p-2" onClick={()=> handleIncrement(item.id)}>➡️</span>
+              <span className="cursor-pointer " onClick={()=> handleIncrement(item.id)}>➡️</span>
             </div>
             <button
               className="mt-2 md:mt-0 rounded-md bg-cyan-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500"
